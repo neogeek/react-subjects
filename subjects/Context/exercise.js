@@ -21,24 +21,61 @@ import React from 'react'
 import { render } from 'react-dom'
 
 class Form extends React.Component {
+  static propTypes = {
+    onSubmit: React.PropTypes.func.isRequired,
+    children: React.PropTypes.node
+  }
+  static childContextTypes = {
+    form: React.PropTypes.shape({
+      onSubmit: React.PropTypes.func.isRequired
+    })
+  }
+  getChildContext() {
+    return {
+      form: {
+        onSubmit: this.props.onSubmit
+      }
+    }
+  }
   render() {
     return <div>{this.props.children}</div>
   }
 }
 
 class SubmitButton extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.node
+  }
+  static contextTypes = {
+    form: React.PropTypes.shape({
+      onSubmit: React.PropTypes.func.isRequired
+    })
+  }
   render() {
-    return <button>{this.props.children}</button>
+    return <button onClick={this.context.form.onSubmit}>{this.props.children}</button>
   }
 }
 
 class TextInput extends React.Component {
+  static propTypes = {
+    name: React.PropTypes.string.isRequired,
+    placeholder: React.PropTypes.string
+  }
+  static contextTypes = {
+    form: React.PropTypes.shape({
+      onSubmit: React.PropTypes.func.isRequired
+    })
+  }
+  handleKeyPress = () => {
+    this.context.form.onSubmit()
+  }
   render() {
     return (
       <input
         type="text"
         name={this.props.name}
         placeholder={this.props.placeholder}
+        onKeyPress={this.handleKeyPress}
       />
     )
   }
