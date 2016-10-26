@@ -66,8 +66,10 @@ class TextInput extends React.Component {
       onSubmit: React.PropTypes.func.isRequired
     })
   }
-  handleKeyPress = () => {
-    this.context.form.onSubmit()
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.context.form.onSubmit()
+    }
   }
   render() {
     return (
