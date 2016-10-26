@@ -29,16 +29,16 @@ class Modal extends React.Component {
     const { isOpen } = this.props
 
     if (isOpen) {
-      $(this.refs.modal).modal('show')
+      $(this.modal).modal('show')
     } else {
-      $(this.refs.modal).modal('hide')
+      $(this.modal).modal('hide')
     }
 
   }
 
   render() {
     return (
-      <div ref="modal" className="modal fade">
+      <div ref={(node) => this.modal = node} className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
