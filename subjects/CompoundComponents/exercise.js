@@ -35,7 +35,8 @@ import { render } from 'react-dom'
 class RadioGroup extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    onChange: PropTypes.func
   }
 
   state = {
@@ -52,7 +53,11 @@ class RadioGroup extends React.Component {
         isSelected,
         handleSelectRadioOption: () => {
 
-          this.setState({ 'selectedValue': child.props.value })
+          this.setState({ 'selectedValue': child.props.value }, () => {
+
+            this.props.onChange(this.state.selectedValue)
+
+          })
 
         }
       })
@@ -116,7 +121,15 @@ class App extends React.Component {
       <div>
         <h1>♬ It's about time that we all turned off the radio ♫</h1>
 
-        <RadioGroup defaultValue={this.state.radioValue}>
+        <h2>Radio Value: {this.state.radioValue}</h2>
+
+        <RadioGroup defaultValue={this.state.radioValue} onChange={(radioValue) => {
+
+            this.setState({
+              radioValue
+            })
+
+          }}>
           <RadioOption value="am">AM</RadioOption>
           <RadioOption value="fm">FM</RadioOption>
           <RadioOption value="tape">Tape</RadioOption>
