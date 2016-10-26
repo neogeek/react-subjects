@@ -34,23 +34,41 @@ import { render } from 'react-dom'
 
 class RadioGroup extends React.Component {
   static propTypes = {
-    defaultValue: PropTypes.string
+    defaultValue: PropTypes.string,
+    children: PropTypes.node
   }
 
+  state = {
+    selectedValue: this.props.defaultValue
+  }
+
+
+
   render() {
-    return <div>{this.props.children}</div>
+
+    const children = React.Children.map(this.props.children, (child) => {
+      const isSelected = child.props.value === this.state.selectedValue
+      return React.cloneElement(child, {
+        isSelected
+      })
+    })
+
+    return (<div>{children}</div>)
+
   }
 }
 
 class RadioOption extends React.Component {
   static propTypes = {
-    value: PropTypes.string
+    isSelected: PropTypes.bool,
+    value: PropTypes.string,
+    children: PropTypes.node
   }
 
   render() {
     return (
       <div>
-        <RadioIcon isSelected={false}/> {this.props.children}
+        <RadioIcon isSelected={this.props.isSelected}/> {this.props.children}
       </div>
     )
   }
@@ -80,12 +98,17 @@ class RadioIcon extends React.Component {
 }
 
 class App extends React.Component {
+
+  state = {
+    radioValue: 'fm'
+  }
+
   render() {
     return (
       <div>
         <h1>♬ It's about time that we all turned off the radio ♫</h1>
 
-        <RadioGroup defaultValue="fm">
+        <RadioGroup defaultValue={this.state.radioValue}>
           <RadioOption value="am">AM</RadioOption>
           <RadioOption value="fm">FM</RadioOption>
           <RadioOption value="tape">Tape</RadioOption>
