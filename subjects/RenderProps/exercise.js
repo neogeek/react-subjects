@@ -23,15 +23,9 @@ import { listen } from './utils/log'
 
 class Tail extends React.Component {
   render() {
-    const { lines } = this.props
+    const { lines, maxLines } = this.props
 
-    return (
-      <ul>
-        {lines.map((line, index) => (
-          <li key={index}>{line}</li>
-        ))}
-      </ul>
-    )
+    return this.props.children(lines.slice(-maxLines))
   }
 }
 
@@ -53,7 +47,9 @@ class App extends React.Component {
       <div>
         <h1>Heads up Eggman, here comes <code>&lt;Tail&gt;</code>s!</h1>
         <div style={{ height: 400, overflowY: 'scroll', border: '1px solid' }}>
-          <Tail lines={this.state.lines}/>
+          <Tail lines={this.state.lines} maxLines={5}>
+            {lines => <ul>{lines.map((line, index) => <li key={index}>{line}</li>)}</ul>}
+          </Tail>
         </div>
       </div>
     )
