@@ -26,7 +26,9 @@ class Modal extends React.Component {
 
   toggleVisibility () {
 
-    if (this.props.isOpen) {
+    const { isOpen } = this.props
+
+    if (isOpen) {
       $(findDOMNode(this)).modal('show')
     } else {
       $(findDOMNode(this)).modal('hide')
