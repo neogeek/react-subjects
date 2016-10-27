@@ -39,7 +39,7 @@ class RainbowList extends React.Component {
   setViewportHeight = () => {
 
       this.setState({
-        viewportHeight: window.innerHeight
+        viewportHeight: this.div.clientHeight
       })
 
   }
@@ -61,7 +61,7 @@ class RainbowList extends React.Component {
     }
 
     return (
-      <div onScroll={(e) => {
+      <div ref={(div) => this.div = div} onScroll={(e) => {
 
           this.setState({
             scrollTop: e.target.scrollTop
