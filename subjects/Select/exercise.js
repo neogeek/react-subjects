@@ -14,16 +14,88 @@ class Select extends React.Component {
   static propTypes = {
     onChange: func,
     value: any,
-    defaultValue: any
+    defaultValue: any,
+    children: PropTypes.node
+  }
+
+  static childContextTypes = {
+    select: React.PropTypes.func.isRequired
+  }
+  getChildContext() {
+    return {
+      select: (value) => {
+
+        if (this.props.onChange) {
+
+          this.props.onChange(value)
+
+        } else {
+
+          this.setState({ value })
+
+        }
+
+      }
+    }
+  }
+
+  state = {
+    isOpen: false,
+    value: this.props.defaultValue
+  }
+
+  handleToggle = () => {
+
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
+
+  }
+
+  isControlled = () => {
+
+    return this.props.value !== undefined
+
+  }
+
+  handleBlur = () => {
+
+    this.setState({
+      isOpen: false
+    })
+
+  }
+
+  getLabel = () => {
+
+    let label
+
+    const { value } = this.isControlled() ? this.props : this.state
+
+    React.Children.forEach(this.props.children, child => {
+
+      if (value === child.props.value) {
+
+        label = child.props.children
+
+      }
+
+    })
+
+    return label
+
   }
 
   render() {
+    const label = this.getLabel()
     return (
-      <div className="select">
-        <div className="label">label <span className="arrow">▾</span></div>
-        <div className="options">
-          {this.props.children}
-        </div>
+      <div tabIndex="0" onBlur={this.handleBlur} onClick={this.handleToggle} className="select">
+        <div className="label">{label} <span className="arrow">▾</span></div>
+        {this.state.isOpen && (
+          <div className="options">
+            {this.props.children}
+          </div>
+        )}
       </div>
     )
   }
@@ -31,9 +103,18 @@ class Select extends React.Component {
 
 
 class Option extends React.Component {
+  static propTypes = {
+    children: PropTypes.string.isRequired
+  }
+  static contextTypes = {
+    select: React.PropTypes.func.isRequired
+  }
+  handleClick = () => {
+    this.context.select(this.props.value)
+  }
   render() {
     return (
-      <div className="option">{this.props.children}</div>
+      <div className="option" onClick={this.handleClick}>{this.props.children}</div>
     )
   }
 }
@@ -41,6 +122,12 @@ class Option extends React.Component {
 class App extends React.Component {
   state = {
     selectValue: 'dosa'
+  }
+
+  setToMintChutney = () => {
+    this.setState({
+      selectValue: 'mint-chutney'
+    })
   }
 
   render() {
