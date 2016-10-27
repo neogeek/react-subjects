@@ -2,12 +2,29 @@ import React, { PropTypes } from 'react'
 import connect from '../mini-redux/connect'
 
 class App extends React.Component {
+
+  state = {
+    counter: 0
+  }
+
+  componentWillMount() {
+
+    this.props.store.listen((data) => {
+
+      this.setState({
+        counter: this.props.store.getState()
+      })
+
+    })
+
+  }
+
   increment = () => {
-    this.props.dispatch({ type: 'INCREMENT' })
+    this.props.store.dispatch({ type: 'INCREMENT' })
   }
 
   decrement = () => {
-    this.props.dispatch({ type: 'DECREMENT' })
+    this.props.store.dispatch({ type: 'DECREMENT' })
   }
 
   render() {
@@ -15,7 +32,7 @@ class App extends React.Component {
       <div>
         <h1>Mini Redux!</h1>
         <button onClick={this.increment}>Increment</button>{' '}
-        {this.props.counter}{' '}
+        {this.state.counter}{' '}
         <button onClick={this.decrement}>Decrement</button>
       </div>
     )
