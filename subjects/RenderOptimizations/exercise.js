@@ -78,7 +78,7 @@ class RainbowList extends React.Component {
 
 render(
   <RainbowList
-    numRows={500}
+    numRows={500000}
     rowHeight={RainbowListDelegate.rowHeight}
     renderRowAtIndex={RainbowListDelegate.renderRowAtIndex}
   />,
