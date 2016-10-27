@@ -10,7 +10,31 @@ import React from 'react'
 import { render } from 'react-dom'
 
 const withMousePosition = (Component) => {
-  return Component
+  return class Mouse extends React.Component {
+
+    state = {
+      mouse: {
+        x: 0,
+        y: 0
+      }
+    }
+
+    render () {
+
+      return (<div style={{ 'width': '100%', 'height': '100%' }} onMouseMove={(e) => {
+
+        this.setState({
+          mouse: {
+            x: e.clientX,
+            y: e.clientY
+          }
+        })
+
+      }}><Component mouse={this.state.mouse}/></div>)
+
+    }
+
+  }
 }
 
 class App extends React.Component {
@@ -35,4 +59,3 @@ class App extends React.Component {
 const AppWithMouse = withMousePosition(App)
 
 render(<AppWithMouse/>, document.getElementById('app'))
-
