@@ -68,7 +68,7 @@ class RainbowList extends React.Component {
           })
 
         }} style={{ height: '100%', overflowY: 'scroll' }}>
-        <ol style={{ position: 'relative', top: this.state.scrollTop, height: totalHeight }}>
+        <ol style={{ position: 'relative', transform: `translate3d(0, ${this.state.scrollTop}px, 0)`, height: totalHeight }}>
           {items}
         </ol>
       </div>
