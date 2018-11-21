@@ -15,7 +15,7 @@
     "test": "npm run lint"
   },
   "dependencies": {
-    "angular": "1.5.8",
+    "angular": "1.6.9",
     "assert": "1.4.1",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-object-assign": "^6.5.0",
@@ -25,7 +25,7 @@
     "babel-register": "^6.9.0",
     "backbone": "^1.2.3",
     "body-parser": "^1.15.2",
-    "bootstrap": "^3.3.4",
+    "bootstrap": "^4.0.0",
     "bootstrap-webpack": "0.0.5",
     "css-loader": "^0.23.1",
     "events": "^1.0.2",
@@ -44,14 +44,14 @@
     "invariant": "^2.1.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.1.0",
-    "jsonp": "0.2.0",
+    "jsonp": "0.2.1",
     "key-mirror": "^1.0.1",
-    "less": "^2.7.1",
+    "less": "^3.0.2",
     "less-loader": "^2.2.3",
     "match-sorter": "^1.5.0",
     "md5": "2.1.0",
     "mkdirp": "^0.5.0",
-    "mocha": "3.0.2",
+    "mocha": "4.0.0",
     "mustache": "^2.2.1",
     "purecss": "0.6.0",
     "react": "^15.1.0",
@@ -72,9 +72,9 @@
     "style-loader": "^0.13.1",
     "supervisor": "^0.11.0",
     "underscore": "^1.8.3",
-    "url-loader": "^0.5.6",
-    "webpack": "^1.7.3",
-    "webpack-dev-server": "^1.8.0"
+    "url-loader": "^0.6.0",
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^3.1.6"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",
