@@ -15,7 +15,7 @@
     "test": "npm run lint"
   },
   "dependencies": {
-    "angular": "1.5.8",
+    "angular": "1.7.9",
     "assert": "1.4.1",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-object-assign": "^6.5.0",
